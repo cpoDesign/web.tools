@@ -1,3 +1,23 @@
+/*
+[Route("Images/{*imagePath}")]
+public IHttpActionResult GetImage(string imagePath)
+{
+    var serverPath = Path.Combine(_rootPath, imagePath);
+    var fileInfo = new FileInfo(serverPath);
+
+    return !fileInfo.Exists
+        ? (IHttpActionResult) NotFound()
+        : new FileResult(fileInfo.FullName);
+}
+
+And here's one way you can tell IIS to ignore requests with an extension so that the request will make it to the controller:
+
+<!-- web.config -->
+<system.webServer>
+  <modules runAllManagedModulesForAllRequests="true"/>
+  
+  ref:http://stackoverflow.com/questions/9541351/returning-binary-file-from-controller-in-asp-net-web-api
+*/
 public class FileResult : IHttpActionResult
 {
     private readonly string _filePath;
