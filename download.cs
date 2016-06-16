@@ -8,4 +8,18 @@ public namespace Tools.Download{
       client.DownloadFile(url, downloadLocation);
     }
   }
+  
+  public HttpResponseMessage Post(string version, string environment,
+    string filetype)
+{
+    var path = @"C:\Temp\test.exe";
+    HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+    var stream = new FileStream(path, FileMode.Open);
+    result.Content = new StreamContent(stream);
+    result.Content.Headers.ContentType = 
+        new MediaTypeHeaderValue("application/octet-stream");
+    return result;
+}
+
+
 }
